@@ -1,0 +1,30 @@
+.block{
+    width: 30vh;
+    height: 30vh;
+    background-color: yellowgreen;
+    position: relative;
+}
+
+.block div{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    font-size: 5vh;
+}
+
+#demoblock{
+    display: none;
+    animation: 3s linear demowelcome;
+}
+
+#text{}
+
+@keyframes demowelcome {
+0%{
+margin-top: 20vh;
+}
+100%{
+margin-top: 0;
+} 
+}

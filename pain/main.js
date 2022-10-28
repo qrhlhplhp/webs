@@ -12,7 +12,7 @@ let x = 0;
 let y = 0;
 let t =false;
 let color = "#000000";
-let bold = 50;
+let bold = 10;
 let image = new Image();
 
 canvas.width = 1920;
@@ -60,7 +60,6 @@ const end = e => {
 colorele.addEventListener('change', e => {
     color = e.target.value;
 });
-
 rangele.addEventListener('change', e => {
     bold = e.target.value;
 });

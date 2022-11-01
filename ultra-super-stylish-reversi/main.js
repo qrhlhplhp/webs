@@ -87,7 +87,7 @@ pass.addEventListener('click', e=>{
 
 function leaderchange(){
     turn = turn==1 ? 2 : 1;
-    param.innerText = (turn == 1 ? "Starin" : "Lenin") + "'s turn";
+    param.innerText = (turn == 1 ? "Stalin" : "Lenin") + "'s turn";
 }
 function turnchange(){
     turn = turn==1 ? 2 : 1;

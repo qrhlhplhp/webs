@@ -1,0 +1,44 @@
+body{
+    background-color:#cd0000
+}
+#flag{
+    background-image:url(svru.svg)
+}
+h1{
+    color:#ffd700;
+    background-color:#cd0000;
+}
+#ussr{
+    font-size:200%;
+}
+#table{
+    background-color:transparent;
+    margin-left:30vw;
+}
+#table td{
+    border: 1px solid white;
+    width:10vmin; height:10vmin;
+}
+#flex{
+    padding-left:1vw;
+    color:#ffd700;
+}
+.stone{
+    border-radius:100%;
+    width:100%;height:100%
+}
+.yellow{
+    background-color:#ffd700;
+}
+.blue{
+    background-color:#0091fa;
+}
+.flag{
+    background-image:url(tools.svg);
+    background-size: cover;
+    width:100%;height:100%
+}
+img{
+    margin-top: 5vh;
+    width: 100%;
+}

@@ -14,10 +14,12 @@ h1{
 #table{
     background-color:transparent;
     margin-left:30vw;
+    width: 70vmin;
+    height:70vmin;
 }
 #table td{
     border: 1px solid white;
-    width:10vmin; height:10vmin;
+    /*width:10vmin; height:10vmin;*/
 }
 #flex{
     padding-left:1vw;

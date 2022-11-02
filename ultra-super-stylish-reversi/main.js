@@ -1,17 +1,21 @@
 let table = document.getElementById("table");
 let param = document.getElementById("param");
+let score = document.getElementById("score");
 const pass = document.getElementById("pass");
+const sur = document.getElementById("sur");
 const revo = document.getElementById("revo");
-let sovi = false;
+let yellow = 0;
+let blue = 0;
+let surdone = false;
+let revodone = false;
 let htable = "";
 
 //[left, botleft, bottom, botright, right, topright, top, topleft]
-const movec = [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
-
 //0->nill, 1->yellow, 2->blue
+const movec = [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
 let turn = 1
-param.innerText = (turn == 1 ? "yellow" : "blue") + "man's turn" ;
 
+//make table
 let stone = new Array(8);
 for(let i = 0; i < 8; i++) {
     stone[i] = new Array(8).fill(0);
@@ -26,17 +30,31 @@ for (let i = 0; i < 8; ++i){
 }
 table.innerHTML = htable;
 
+//set default-stone
+function def(){
+turn = 1;
+yellow = 0;
+blue = 0;
+surdone = false;
+revodone = false;
+param.innerText = "Yellowman's turn";
+score.innerText = ""
+sur.innerText = "SURRENDER";
 stone[3][3] = 1; stone[4][4] = 1;
 stone[4][3] = 2; stone[3][4] = 2;
 document.getElementById("td-3-3").innerHTML = "<div class=\"stone yellow\"></div>";
 document.getElementById("td-4-4").innerHTML = "<div class=\"stone yellow\"></div>";
 document.getElementById("td-4-3").innerHTML = "<div class=\"stone blue\"></div>";
 document.getElementById("td-3-4").innerHTML = "<div class=\"stone blue\"></div>";
+}
+def();
 
+//event to place stones
 table.addEventListener('click', e =>{
     let coord = document.elementFromPoint(e.clientX, e.clientY);
     if(coord.tagName != "TD")return;
-    
+    if(surdone)return;
+    if(revodone)return;
     const stonegen = coord.id.split("-");
     //position of the stone to put right now
     let x = Number(stonegen[1]);
@@ -71,44 +89,96 @@ table.addEventListener('click', e =>{
             }
         }
         if(!canPlace)return;
-        stone[x][y] = turn
+        stone[x][y] = turn;
         coord.innerHTML = `<div class="stone ${turn == 1 ? "yellow" : "blue"}"></div>`;
-        turnchange();
+        change(1);
     }
 });
 
+//event to pass a turn
 pass.addEventListener('click', e=>{
-    if(sovi){
-        leaderchange()
-    }else{
-        turnchange()
-    }
+    if(surdone){
+        return;
+    }else if(revodone){
+        change(2)
+    }else{ 
+        change(1)
+    };
 });
 
-function leaderchange(){
-    turn = turn==1 ? 2 : 1;
-    param.innerText = (turn == 1 ? "Stalin" : "Lenin") + "'s turn";
+//event to end and reset a game
+sur.addEventListener('click', e=>{
+    if(surdone){
+        search(reset);
+        def();
+    }else if(revodone){
+        surdone = true;
+        param.innerText = "Communists' victory"
+        score.innerText = "10000-0";
+        sur.innerText = "RESET";
+    }else{
+        surdone = true;
+        search(surrender);
+        sur.innerText = "RESET";
+    };
+});
+
+//event to cause a revolution
+revo.addEventListener('click', e=>{
+    if(revodone)return;
+    revodone = true;
+    surdone = false;
+    score.innerText = ""
+    sur.innerText = "SURRENDER";
+    search(revolution);
+    }
+);
+
+function change(man){
+    turn = (turn == 1 ? 2 : 1);
+    param.innerText = (turn == 1 ? (man == 1 ? "Yellowman" : "Stalin") : (man == 1 ? "Blueman" : "Lenin")) + "'s turn";
 }
-function turnchange(){
-    turn = turn==1 ? 2 : 1;
-    param.innerText = (turn == 1 ? "yellow" : "blue") + "man's turn";
+function search(fx){
+    for(let i = 0; i < 8; i++){
+        for(let j = 0; j < 8; j++){
+            fx(i,j);
+        }
+    }
+}
+function reset(i,j){
+    stone[i][j] = 0;
+    document.getElementById(`td-${i}-${j}`).innerHTML = "";
+}
+function revolution(i,j){
+    stone[i][j] = 0;
+    document.getElementById(`td-${i}-${j}`).innerHTML = `<div class="flag"></div>`;
+    turn = 2;
+    param.innerText = "Lenin's turn";
+}
+function surrender(i,j){
+    switch(stone[i][j]){
+        case 1: yellow++; break;
+        case 2: blue++; break;
+    }
+    if(yellow > blue){
+        param.innerText = "Yellowman's victory:";
+        score.innerText = `${yellow}-${blue}`;
+    }else if(yellow < blue){
+        param.innerText = "Blueman's victory:";
+        score.innerText = `${blue}-${yellow}`;
+    }else if(yellow == blue){
+        param.innerText = "Draw:";
+        score.innerText = `${yellow}-${blue}`;
+    }else{
+        param.innerText = "HOW DARE YOU!!!";
+        score.innerText = "THIS iS ERROR MESSAGE!!!";
+    }
 }
 
-revo.addEventListener('click', e=>{
-    if(sovi)return;
-    sovi = true;
-        /*stone = stone.map(line=>{
+/* 2D-array reminder
+stone = stone.map(line=>{
             return line.map(cell=>{
                 return 0;
             });
-        });*/
-        for(let i = 0; i < 8; i++){
-            for(let j = 0; j < 8; j++){
-                stone[i][j] = 0;
-                document.getElementById(`td-${i}-${j}`).innerHTML = `<div class="flag"></div>`;
-                turn = 2;
-                param.innerText = "Lenin's turn";
-            }
-        }
-    }
-);
+        });
+*/

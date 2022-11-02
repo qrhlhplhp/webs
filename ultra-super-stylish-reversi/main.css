@@ -23,7 +23,12 @@ h1{
 }
 #flex{
     padding-left:1vw;
+}
+#flextext{
     color:#ffd700;
+    font-size:200%;
+    font-weight: 800;
+    max-width: min-content;
 }
 .stone{
     border-radius:100%;

@@ -42,10 +42,10 @@ score.innerText = ""
 sur.innerText = "SURRENDER";
 stone[3][3] = 1; stone[4][4] = 1;
 stone[4][3] = 2; stone[3][4] = 2;
-document.getElementById("td-3-3").innerHTML = "<div class=\"stone yellow\"></div>";
-document.getElementById("td-4-4").innerHTML = "<div class=\"stone yellow\"></div>";
-document.getElementById("td-4-3").innerHTML = "<div class=\"stone blue\"></div>";
-document.getElementById("td-3-4").innerHTML = "<div class=\"stone blue\"></div>";
+document.getElementById("td-3-3").innerHTML = `<div class="stone yellow"></div>`;
+document.getElementById("td-4-4").innerHTML = `<div class="stone yellow"></div>`;
+document.getElementById("td-4-3").innerHTML = `<div class="stone blue"></div>`;
+document.getElementById("td-3-4").innerHTML = `<div class="stone blue"></div>`;
 }
 def();
 

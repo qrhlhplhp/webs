@@ -1,0 +1,26 @@
+body{
+    font-family: JetBrain;
+}
+#totype{
+    font-size:200%;
+    background: linear-gradient(90deg, red 0% 50%,black 50% 100%);
+    background-size: 200% 200%;
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes karaoke{
+    0% {background-position: 100% 50%;}
+	100% {background-position: 0% 50%;}
+    /*0%{background:linear-gradient(90deg,red 0% 0%, transparent 0% 100%)}
+    100%{background:linear-gradient(90deg,red 0% 100%, transparent 100% 100%)}
+
+    0%{color: black;}
+    100%{color: red;}*/
+}
+
+@font-face {
+    font-family: "JetBrain";
+    src: url("./fonts/fonts/webfonts/JetBrainsMono-Medium.woff2") format("woff2");
+}

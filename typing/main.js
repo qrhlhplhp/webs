@@ -60,10 +60,10 @@ function timeclock(){
         timecounttext.style.fontWeight = "bold"
         timecounttext.innerText = "TIME OVER"
         resetcolor()
-        typed.value = ""
         timecountspeed()
         setTimeout(setcolor,1000,timecounter);
         setTimeout(setToType,1000);
+        setTimeout(()=>typed.value = "",1000);
     }else{
         lifecounttext.innerText = --lifecounter
         timecounttext.style.color = "red"
